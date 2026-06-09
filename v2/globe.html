@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PassionBits — Global Creator Network (globe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800&family=Red+Hat+Text:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="tokens.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-ui);color:var(--pb-ink);background:#fff;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+h2{font-family:var(--font-display);letter-spacing:-.025em;line-height:1.06}
+.gtext{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--pb-orange-600)}
+
+/* ============================================================
+   GLOBE — "The world's creators, on one map."
+   ============================================================ */
+.scale{position:relative;overflow:hidden;padding:92px 0 96px;
+  background:radial-gradient(120% 80% at 50% 18%, #fff6ee 0%, #fff 62%),#fff}
+.scale__inner{position:relative;z-index:2}
+.scale__head{text-align:center;max-width:760px;margin:0 auto}
+.scale__head .eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:16px}
+.scale__head h2{font-size:clamp(34px,4.6vw,54px);font-weight:800}
+.scale__head p{font-family:var(--font-ui);color:var(--pb-slate);font-size:18px;line-height:1.55;margin:16px auto 0;max-width:580px}
+
+/* ---- globe stage ---- */
+.stage{position:relative;width:100%;max-width:760px;height:560px;margin:8px auto 0}
+.globe-wrap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:460px;height:460px}
+/* warm atmosphere halo behind the globe */
+.globe-wrap::before{content:"";position:absolute;inset:-60px;border-radius:50%;z-index:0;
+  background:radial-gradient(circle at 50% 50%, rgba(255,138,61,.30), rgba(255,138,61,0) 62%)}
+
+/* ---- CSS/SVG globe (no WebGL dependency) ---- */
+.globe{position:relative;z-index:1;width:460px;height:460px;border-radius:50%;
+  background:
+    radial-gradient(circle at 36% 30%, #fff3e6 0%, #ffd9b0 30%, #ffb878 62%, #ff9a4d 100%);
+  box-shadow:
+    inset -34px -40px 70px rgba(150,55,0,.42),
+    inset 26px 22px 50px rgba(255,255,255,.55),
+    0 30px 70px rgba(150,55,0,.28);
+  overflow:hidden}
+/* rotating dotted surface (continents-as-data feel) */
+.globe .surface{position:absolute;inset:0;border-radius:50%;overflow:hidden;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 60%, transparent 96%);
+  mask-image:radial-gradient(circle at 50% 50%, #000 60%, transparent 96%)}
+.globe .surface::before{content:"";position:absolute;top:-10%;left:0;height:120%;width:200%;
+  background-image:radial-gradient(circle, rgba(190,70,0,.55) 1.4px, transparent 1.7px);
+  background-size:17px 17px;
+  animation:globespin 22s linear infinite}
+@keyframes globespin{to{transform:translateX(-50%)}}
+/* lat/long wireframe */
+.globe .grid{position:absolute;inset:0;z-index:2}
+.globe .grid line, .globe .grid ellipse, .globe .grid circle{fill:none;
+  stroke:rgba(140,52,0,.30);stroke-width:.8}
+/* specular sheen */
+.globe::after{content:"";position:absolute;inset:0;border-radius:50%;z-index:3;pointer-events:none;
+  background:radial-gradient(circle at 33% 27%, rgba(255,255,255,.6), rgba(255,255,255,0) 38%)}
+/* pulsing location pins sitting on the surface */
+.dot{position:absolute;z-index:4;width:9px;height:9px;border-radius:50%;background:#ff5a00;
+  box-shadow:0 0 0 2px rgba(255,255,255,.85)}
+.dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid #ff5a00;
+  opacity:.6;animation:ping 2.8s ease-out infinite}
+@keyframes ping{0%{transform:scale(.6);opacity:.7}100%{transform:scale(2.4);opacity:0}}
+.dot.d1{top:34%;left:30%}.dot.d2{top:46%;left:58%}
+.dot.d3{top:62%;left:42%}.dot.d4{top:30%;left:64%}
+.dot.d5{top:56%;left:24%}
+.dot.d2::after{animation-delay:-.9s}.dot.d4::after{animation-delay:-1.6s}.dot.d5::after{animation-delay:-2.2s}
+/* faint orbit rings for depth */
+.stage .ring{position:absolute;left:50%;top:50%;border:1px dashed #ffd6b8;border-radius:50%;
+  transform:translate(-50%,-50%) rotateX(74deg);z-index:0;opacity:.7}
+.ring.r1{width:560px;height:560px}
+.ring.r2{width:680px;height:680px;opacity:.45}
+
+/* ---- avatar chips floating around the globe ---- */
+.pin{position:absolute;z-index:4;display:flex;align-items:center;gap:9px;
+  background:#fff;border:1px solid var(--pb-line);border-radius:var(--r-pill);
+  padding:6px 14px 6px 6px;box-shadow:var(--shadow-card);white-space:nowrap;
+  animation:float 7s ease-in-out infinite}
+.pin .av{width:34px;height:34px;border-radius:50%;flex:0 0 auto;position:relative;display:grid;
+  place-items:center;color:#fff;font-family:var(--font-display);font-weight:800;font-size:12px;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
+.pin .av .fl{position:absolute;right:-3px;bottom:-3px;width:16px;height:16px;border-radius:50%;
+  background:#fff;display:grid;place-items:center;font-size:10px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.pin .meta{display:flex;flex-direction:column;line-height:1.15}
+.pin .nm{font-family:var(--font-display);font-weight:700;font-size:13.5px;color:var(--pb-ink)}
+.pin .ni{font-family:var(--font-ui);font-size:11.5px;color:var(--pb-slate)}
+.pin .ni b{color:var(--pb-orange-600);font-weight:600}
+/* a little connector nub toward the globe */
+.pin::after{content:"";position:absolute;width:9px;height:9px;border-radius:50%;
+  background:var(--pb-orange);box-shadow:0 0 0 4px rgba(255,102,0,.18)}
+.pin.tl{top:34px;left:2px;animation-delay:-.4s}      .pin.tl::after{right:-16px;bottom:14px}
+.pin.tr{top:18px;right:6px;animation-delay:-2.1s}    .pin.tr::after{left:-16px;bottom:14px}
+.pin.ml{top:236px;left:-22px;animation-delay:-3.3s}  .pin.ml::after{right:-16px;top:14px}
+.pin.mr{top:212px;right:-26px;animation-delay:-1.2s} .pin.mr::after{left:-16px;top:14px}
+.pin.bl{bottom:40px;left:30px;animation-delay:-4.6s} .pin.bl::after{right:-16px;top:14px}
+.pin.br{bottom:24px;right:34px;animation-delay:-2.8s}.pin.br::after{left:-16px;top:14px}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+.av.h1{background:radial-gradient(circle at 34% 28%,#ffb27a,#ff6a2b)}
+.av.h2{background:radial-gradient(circle at 34% 28%,#7fd1ff,#3b6fd4)}
+.av.h3{background:radial-gradient(circle at 34% 28%,#ffc9a0,#c96a3a)}
+.av.h4{background:radial-gradient(circle at 34% 28%,#b9e6a3,#3f9d6c)}
+.av.h5{background:radial-gradient(circle at 34% 28%,#ffa7c4,#e0467f)}
+.av.h6{background:radial-gradient(circle at 34% 28%,#d8b4ff,#7c4ad6)}
+.av.h7{background:radial-gradient(circle at 34% 28%,#ffd98a,#e8902a)}
+.av.h8{background:radial-gradient(circle at 34% 28%,#9bd0c4,#2f7d72)}
+
+/* ---- stat band ---- */
+.statband{display:grid;grid-template-columns:repeat(4,1fr);margin:6px auto 0;max-width:920px;
+  background:#fff;border:1px solid var(--pb-line);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-panel);overflow:hidden;position:relative;z-index:5}
+.statband .stat{padding:26px 22px;text-align:center;position:relative}
+.statband .stat + .stat::before{content:"";position:absolute;left:0;top:20px;bottom:20px;width:1px;background:var(--pb-line)}
+.statband .num{font-family:var(--font-display);font-weight:800;letter-spacing:-.03em;line-height:1;font-size:clamp(32px,3.6vw,42px);color:var(--pb-ink)}
+.statband .num em{font-style:normal;color:var(--pb-orange)}
+.statband .lbl{font-family:var(--font-ui);font-weight:600;font-size:13px;color:var(--pb-slate);margin-top:9px;line-height:1.35}
+
+/* ---- region strip ---- */
+.regions{margin-top:30px;text-align:center}
+.regions .pills{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;max-width:820px;margin:0 auto}
+.regions .pill{background:var(--pb-peach-50);border:1px solid var(--pb-line);border-radius:var(--r-pill);
+  padding:7px 15px;font-family:var(--font-ui);font-weight:600;font-size:13px;color:var(--pb-ink);
+  display:inline-flex;align-items:center;gap:6px}
+.regions .pill .n{color:var(--pb-orange);font-weight:700}
+
+@media(max-width:820px){
+  .stage{height:440px;transform:scale(.86)}
+  .pin .meta{display:none} .pin{padding:5px}
+  .statband{grid-template-columns:repeat(2,1fr)}
+  .statband .stat::before{display:none}
+  .statband .stat:nth-child(n+3){border-top:1px solid var(--pb-line)}
+}
+</style>
+</head>
+<body>
+
+<section class="scale">
+ <div class="scale__inner wrap">
+  <div class="scale__head">
+    <span class="eyebrow"><span>🌍</span> Global creator network</span>
+    <h2>A creator for every audience, <span class="gtext">anywhere on earth.</span></h2>
+    <p>120,000+ vetted creators across 190 countries — diverse faces, languages and niches, all one brief away.</p>
+  </div>
+
+  <div class="stage">
+    <span class="ring r1"></span><span class="ring r2"></span>
+
+    <span class="pin tl"><span class="av h1">MA<span class="fl">🇧🇷</span></span><span class="meta"><span class="nm">Mariana A.</span><span class="ni">São Paulo · <b>Beauty</b></span></span></span>
+    <span class="pin tr"><span class="av h2">JK<span class="fl">🇰🇷</span></span><span class="meta"><span class="nm">Jae Kim</span><span class="ni">Seoul · <b>Tech</b></span></span></span>
+    <span class="pin ml"><span class="av h4">AO<span class="fl">🇳🇬</span></span><span class="meta"><span class="nm">Ada O.</span><span class="ni">Lagos · <b>Fashion</b></span></span></span>
+    <span class="pin mr"><span class="av h6">LD<span class="fl">🇫🇷</span></span><span class="meta"><span class="nm">Léa D.</span><span class="ni">Paris · <b>Food</b></span></span></span>
+    <span class="pin bl"><span class="av h3">RS<span class="fl">🇮🇳</span></span><span class="meta"><span class="nm">Rohan S.</span><span class="ni">Mumbai · <b>Fitness</b></span></span></span>
+    <span class="pin br"><span class="av h5">SE<span class="fl">🇪🇬</span></span><span class="meta"><span class="nm">Salma E.</span><span class="ni">Cairo · <b>Travel</b></span></span></span>
+
+    <div class="globe-wrap">
+      <div class="globe">
+        <div class="surface"></div>
+        <svg class="grid" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <circle cx="100" cy="100" r="99.5"/>
+          <!-- meridians (longitude) -->
+          <ellipse cx="100" cy="100" rx="62" ry="99.5"/>
+          <ellipse cx="100" cy="100" rx="30" ry="99.5"/>
+          <line x1="100" y1="0.5" x2="100" y2="199.5"/>
+          <!-- parallels (latitude) -->
+          <line x1="0.5" y1="100" x2="199.5" y2="100"/>
+          <ellipse cx="100" cy="62" rx="90" ry="11"/>
+          <ellipse cx="100" cy="138" rx="90" ry="11"/>
+          <ellipse cx="100" cy="34" rx="66" ry="8"/>
+          <ellipse cx="100" cy="166" rx="66" ry="8"/>
+        </svg>
+        <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+        <span class="dot d4"></span><span class="dot d5"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="statband">
+    <div class="stat"><div class="num"><em>120</em>K+</div><div class="lbl">Vetted creators<br>in the network</div></div>
+    <div class="stat"><div class="num"><em>190</em></div><div class="lbl">Countries &amp;<br>regions covered</div></div>
+    <div class="stat"><div class="num"><em>32</em></div><div class="lbl">Content niches<br>&amp; verticals</div></div>
+    <div class="stat"><div class="num"><em>1.4</em>B</div><div class="lbl">Combined<br>monthly reach</div></div>
+  </div>
+
+  <div class="regions">
+    <div class="pills">
+      <span class="pill">North America <span class="n">38K</span></span>
+      <span class="pill">LATAM <span class="n">19K</span></span>
+      <span class="pill">Europe <span class="n">27K</span></span>
+      <span class="pill">MENA <span class="n">8K</span></span>
+      <span class="pill">South Asia <span class="n">14K</span></span>
+      <span class="pill">SE Asia <span class="n">11K</span></span>
+      <span class="pill">Africa <span class="n">7K</span></span>
+      <span class="pill">Oceania <span class="n">4K</span></span>
+    </div>
+  </div>
+ </div>
+</section>
+
+</body>
+</html>

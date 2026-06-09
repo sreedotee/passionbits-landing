@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PassionBits — Scale / Global Creator Network section</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800;900&family=Red+Hat+Text:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="tokens.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-ui);color:var(--pb-ink);background:#fff;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+h2,h3{font-family:var(--font-display);letter-spacing:-.025em;line-height:1.06}
+.gtext{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--pb-orange-600)}
+
+/* ============================================================
+   SCALE — "The world's creators, in one network."
+   Synthesis: Google Maps stat band + Patreon/TikTok creator wall
+   + YouTube/TikTok global-reach (countries · languages · niches).
+   ============================================================ */
+.scale{position:relative;overflow:hidden;padding:96px 0 104px;
+  background:
+    radial-gradient(120% 90% at 50% -10%, #fff6ee 0%, #fff 60%),
+    #fff}
+/* faint dotted-world wash behind everything */
+.scale::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(var(--pb-peach-100) 1.4px,transparent 1.5px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(95% 70% at 50% 30%,#000 0%,transparent 72%);
+  mask-image:radial-gradient(95% 70% at 50% 30%,#000 0%,transparent 72%)}
+.scale__inner{position:relative;z-index:2}
+
+/* ---- header ---- */
+.scale__head{text-align:center;max-width:760px;margin:0 auto 8px}
+.scale__head .eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px}
+.scale__head .eyebrow .globe{font-size:14px}
+.scale__head h2{font-size:clamp(34px,4.6vw,56px);font-weight:800}
+.scale__head p{font-family:var(--font-ui);color:var(--pb-slate);font-size:18px;line-height:1.55;
+  margin:18px auto 0;max-width:600px}
+
+/* ---- stat band (Google Maps / Tripadvisor style) ---- */
+.statband{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:48px auto 8px;max-width:980px;
+  background:#fff;border:1px solid var(--pb-line);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-panel);overflow:hidden}
+.stat{padding:30px 26px;text-align:center;position:relative}
+.stat + .stat::before{content:"";position:absolute;left:0;top:22px;bottom:22px;width:1px;background:var(--pb-line)}
+.stat .num{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:1;
+  font-size:clamp(34px,4vw,46px);color:var(--pb-ink)}
+.stat .num em{font-style:normal;color:var(--pb-orange)}
+.stat .lbl{font-family:var(--font-ui);font-weight:600;font-size:13.5px;color:var(--pb-slate);
+  margin-top:10px;line-height:1.35}
+
+/* ---- creator wall (marquee rows) ---- */
+.wall{margin-top:64px;position:relative;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.row{display:flex;gap:16px;width:max-content;padding:9px 0;
+  animation:slide var(--dur,60s) linear infinite}
+.row.rev{animation-direction:reverse}
+.wall:hover .row{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+.cc{display:flex;align-items:center;gap:13px;flex:0 0 auto;
+  background:#fff;border:1px solid var(--pb-line);border-radius:var(--r-pill);
+  padding:9px 18px 9px 9px;box-shadow:var(--shadow-card)}
+.cc .av{width:44px;height:44px;border-radius:50%;flex:0 0 auto;position:relative;
+  display:grid;place-items:center;color:#fff;font-family:var(--font-display);font-weight:800;font-size:15px;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
+.cc .av .fl{position:absolute;right:-3px;bottom:-3px;width:18px;height:18px;border-radius:50%;
+  background:#fff;display:grid;place-items:center;font-size:11px;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.cc .meta{display:flex;flex-direction:column;line-height:1.2}
+.cc .nm{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--pb-ink)}
+.cc .ni{font-family:var(--font-ui);font-size:12.5px;color:var(--pb-slate);margin-top:1px}
+.cc .ni b{color:var(--pb-orange-600);font-weight:600}
+/* diverse avatar hues — warm-led, but spanning the wheel so the wall reads as people */
+.h1{background:radial-gradient(circle at 34% 28%,#ffb27a,#ff6a2b)}
+.h2{background:radial-gradient(circle at 34% 28%,#7fd1ff,#3b6fd4)}
+.h3{background:radial-gradient(circle at 34% 28%,#ffc9a0,#c96a3a)}
+.h4{background:radial-gradient(circle at 34% 28%,#b9e6a3,#3f9d6c)}
+.h5{background:radial-gradient(circle at 34% 28%,#ffa7c4,#e0467f)}
+.h6{background:radial-gradient(circle at 34% 28%,#d8b4ff,#7c4ad6)}
+.h7{background:radial-gradient(circle at 34% 28%,#ffd98a,#e8902a)}
+.h8{background:radial-gradient(circle at 34% 28%,#9bd0c4,#2f7d72)}
+
+/* ---- region strip ---- */
+.regions{margin-top:42px;text-align:center}
+.regions .lead{font-family:var(--font-ui);font-size:13.5px;color:var(--pb-slate);margin-bottom:16px}
+.regions .pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:880px;margin:0 auto}
+.regions .pill{background:var(--pb-peach-50);border:1px solid var(--pb-line);border-radius:var(--r-pill);
+  padding:8px 16px;font-family:var(--font-ui);font-weight:600;font-size:13.5px;color:var(--pb-ink);
+  display:inline-flex;align-items:center;gap:7px}
+.regions .pill .n{color:var(--pb-orange);font-weight:700}
+
+/* ---- footer cta ---- */
+.scale__cta{margin-top:46px;text-align:center}
+.scale__cta a{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--pb-orange-600);
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.scale__cta a .arr{transition:transform .2s}
+.scale__cta a:hover .arr{transform:translateX(4px)}
+
+@media(max-width:760px){
+  .statband{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(3)::before,.stat:nth-child(odd)::before{display:none}
+  .stat:nth-child(3),.stat:nth-child(4){border-top:1px solid var(--pb-line)}
+}
+</style>
+</head>
+<body>
+
+<section class="scale">
+ <div class="scale__inner wrap">
+
+  <!-- header -->
+  <div class="scale__head">
+    <span class="eyebrow"><span class="globe">🌍</span> Global creator network</span>
+    <h2>A creator for every audience, <span class="gtext">anywhere on the map.</span></h2>
+    <p>Vetted, on-brand creators across every region, language and niche — ready to brief, the moment a winning pattern appears.</p>
+  </div>
+
+  <!-- stat band -->
+  <div class="statband">
+    <div class="stat"><div class="num"><em>120</em>K+</div><div class="lbl">Vetted creators<br>in the network</div></div>
+    <div class="stat"><div class="num"><em>190</em></div><div class="lbl">Countries &amp;<br>regions covered</div></div>
+    <div class="stat"><div class="num"><em>32</em></div><div class="lbl">Content niches<br>&amp; verticals</div></div>
+    <div class="stat"><div class="num"><em>1.4</em>B</div><div class="lbl">Combined<br>monthly reach</div></div>
+  </div>
+
+  <!-- creator wall -->
+  <div class="wall">
+    <div class="row" style="--dur:64s">
+      <span class="cc"><span class="av h1">MA<span class="fl">🇧🇷</span></span><span class="meta"><span class="nm">Mariana A.</span><span class="ni">São Paulo · <b>Beauty</b></span></span></span>
+      <span class="cc"><span class="av h2">JK<span class="fl">🇰🇷</span></span><span class="meta"><span class="nm">Jae Kim</span><span class="ni">Seoul · <b>Tech</b></span></span></span>
+      <span class="cc"><span class="av h4">AO<span class="fl">🇳🇬</span></span><span class="meta"><span class="nm">Ada O.</span><span class="ni">Lagos · <b>Fashion</b></span></span></span>
+      <span class="cc"><span class="av h6">LD<span class="fl">🇫🇷</span></span><span class="meta"><span class="nm">Léa D.</span><span class="ni">Paris · <b>Food</b></span></span></span>
+      <span class="cc"><span class="av h3">RS<span class="fl">🇮🇳</span></span><span class="meta"><span class="nm">Rohan S.</span><span class="ni">Mumbai · <b>Fitness</b></span></span></span>
+      <span class="cc"><span class="av h5">CM<span class="fl">🇺🇸</span></span><span class="meta"><span class="nm">Cara M.</span><span class="ni">Austin · <b>Home</b></span></span></span>
+      <!-- duplicate set for seamless loop -->
+      <span class="cc"><span class="av h1">MA<span class="fl">🇧🇷</span></span><span class="meta"><span class="nm">Mariana A.</span><span class="ni">São Paulo · <b>Beauty</b></span></span></span>
+      <span class="cc"><span class="av h2">JK<span class="fl">🇰🇷</span></span><span class="meta"><span class="nm">Jae Kim</span><span class="ni">Seoul · <b>Tech</b></span></span></span>
+      <span class="cc"><span class="av h4">AO<span class="fl">🇳🇬</span></span><span class="meta"><span class="nm">Ada O.</span><span class="ni">Lagos · <b>Fashion</b></span></span></span>
+      <span class="cc"><span class="av h6">LD<span class="fl">🇫🇷</span></span><span class="meta"><span class="nm">Léa D.</span><span class="ni">Paris · <b>Food</b></span></span></span>
+      <span class="cc"><span class="av h3">RS<span class="fl">🇮🇳</span></span><span class="meta"><span class="nm">Rohan S.</span><span class="ni">Mumbai · <b>Fitness</b></span></span></span>
+      <span class="cc"><span class="av h5">CM<span class="fl">🇺🇸</span></span><span class="meta"><span class="nm">Cara M.</span><span class="ni">Austin · <b>Home</b></span></span></span>
+    </div>
+
+    <div class="row rev" style="--dur:74s">
+      <span class="cc"><span class="av h7">TN<span class="fl">🇯🇵</span></span><span class="meta"><span class="nm">Tomo N.</span><span class="ni">Tokyo · <b>Gaming</b></span></span></span>
+      <span class="cc"><span class="av h8">SE<span class="fl">🇪🇬</span></span><span class="meta"><span class="nm">Salma E.</span><span class="ni">Cairo · <b>Travel</b></span></span></span>
+      <span class="cc"><span class="av h5">VR<span class="fl">🇲🇽</span></span><span class="meta"><span class="nm">Valeria R.</span><span class="ni">CDMX · <b>Beauty</b></span></span></span>
+      <span class="cc"><span class="av h2">OK<span class="fl">🇬🇧</span></span><span class="meta"><span class="nm">Olu K.</span><span class="ni">London · <b>Finance</b></span></span></span>
+      <span class="cc"><span class="av h3">DP<span class="fl">🇦🇺</span></span><span class="meta"><span class="nm">Dani P.</span><span class="ni">Sydney · <b>Wellness</b></span></span></span>
+      <span class="cc"><span class="av h4">HN<span class="fl">🇻🇳</span></span><span class="meta"><span class="nm">Hà N.</span><span class="ni">Hanoi · <b>DIY</b></span></span></span>
+      <!-- duplicate set -->
+      <span class="cc"><span class="av h7">TN<span class="fl">🇯🇵</span></span><span class="meta"><span class="nm">Tomo N.</span><span class="ni">Tokyo · <b>Gaming</b></span></span></span>
+      <span class="cc"><span class="av h8">SE<span class="fl">🇪🇬</span></span><span class="meta"><span class="nm">Salma E.</span><span class="ni">Cairo · <b>Travel</b></span></span></span>
+      <span class="cc"><span class="av h5">VR<span class="fl">🇲🇽</span></span><span class="meta"><span class="nm">Valeria R.</span><span class="ni">CDMX · <b>Beauty</b></span></span></span>
+      <span class="cc"><span class="av h2">OK<span class="fl">🇬🇧</span></span><span class="meta"><span class="nm">Olu K.</span><span class="ni">London · <b>Finance</b></span></span></span>
+      <span class="cc"><span class="av h3">DP<span class="fl">🇦🇺</span></span><span class="meta"><span class="nm">Dani P.</span><span class="ni">Sydney · <b>Wellness</b></span></span></span>
+      <span class="cc"><span class="av h4">HN<span class="fl">🇻🇳</span></span><span class="meta"><span class="nm">Hà N.</span><span class="ni">Hanoi · <b>DIY</b></span></span></span>
+    </div>
+
+    <div class="row" style="--dur:68s">
+      <span class="cc"><span class="av h6">EM<span class="fl">🇩🇪</span></span><span class="meta"><span class="nm">Emil M.</span><span class="ni">Berlin · <b>Auto</b></span></span></span>
+      <span class="cc"><span class="av h1">PK<span class="fl">🇨🇦</span></span><span class="meta"><span class="nm">Priya K.</span><span class="ni">Toronto · <b>Parenting</b></span></span></span>
+      <span class="cc"><span class="av h8">LA<span class="fl">🇿🇦</span></span><span class="meta"><span class="nm">Lwazi A.</span><span class="ni">Cape Town · <b>Music</b></span></span></span>
+      <span class="cc"><span class="av h7">NS<span class="fl">🇸🇪</span></span><span class="meta"><span class="nm">Nora S.</span><span class="ni">Stockholm · <b>Design</b></span></span></span>
+      <span class="cc"><span class="av h3">FA<span class="fl">🇦🇪</span></span><span class="meta"><span class="nm">Faisal A.</span><span class="ni">Dubai · <b>Luxury</b></span></span></span>
+      <span class="cc"><span class="av h4">CB<span class="fl">🇵🇭</span></span><span class="meta"><span class="nm">Chloe B.</span><span class="ni">Manila · <b>Comedy</b></span></span></span>
+      <!-- duplicate set -->
+      <span class="cc"><span class="av h6">EM<span class="fl">🇩🇪</span></span><span class="meta"><span class="nm">Emil M.</span><span class="ni">Berlin · <b>Auto</b></span></span></span>
+      <span class="cc"><span class="av h1">PK<span class="fl">🇨🇦</span></span><span class="meta"><span class="nm">Priya K.</span><span class="ni">Toronto · <b>Parenting</b></span></span></span>
+      <span class="cc"><span class="av h8">LA<span class="fl">🇿🇦</span></span><span class="meta"><span class="nm">Lwazi A.</span><span class="ni">Cape Town · <b>Music</b></span></span></span>
+      <span class="cc"><span class="av h7">NS<span class="fl">🇸🇪</span></span><span class="meta"><span class="nm">Nora S.</span><span class="ni">Stockholm · <b>Design</b></span></span></span>
+      <span class="cc"><span class="av h3">FA<span class="fl">🇦🇪</span></span><span class="meta"><span class="nm">Faisal A.</span><span class="ni">Dubai · <b>Luxury</b></span></span></span>
+      <span class="cc"><span class="av h4">CB<span class="fl">🇵🇭</span></span><span class="meta"><span class="nm">Chloe B.</span><span class="ni">Manila · <b>Comedy</b></span></span></span>
+    </div>
+  </div>
+
+  <!-- region strip -->
+  <div class="regions">
+    <div class="lead">Sourced and vetted across every major market</div>
+    <div class="pills">
+      <span class="pill">North America <span class="n">38K</span></span>
+      <span class="pill">LATAM <span class="n">19K</span></span>
+      <span class="pill">Europe <span class="n">27K</span></span>
+      <span class="pill">MENA <span class="n">8K</span></span>
+      <span class="pill">South Asia <span class="n">14K</span></span>
+      <span class="pill">SE Asia <span class="n">11K</span></span>
+      <span class="pill">Africa <span class="n">7K</span></span>
+      <span class="pill">Oceania <span class="n">4K</span></span>
+    </div>
+  </div>
+
+  <div class="scale__cta">
+    <a href="#">Explore the creator network <span class="arr">→</span></a>
+  </div>
+
+ </div>
+</section>
+
+</body>
+</html>

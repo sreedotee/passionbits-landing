@@ -1,0 +1,53 @@
+/* =====================================================================
+   PassionBits design tokens — Dash Social's structure, warmed to orange.
+   (Derived from dash-ui-kit.css: same radii/shadows, cool->warm palette.)
+   ===================================================================== */
+:root{
+  /* warm palette (orange analog of Dash blue/purple/pink) */
+  --pb-orange:#ff6600;
+  --pb-orange-600:#e85800;
+  --pb-amber:#ff9a3d;
+  --pb-coral:#ff4d6d;          /* warm analog of their purple accent */
+  --pb-peach-100:#ffe3cf;
+  --pb-peach-50:#fff5ee;
+  --pb-field:#fff3ea;
+  --pb-ink:#1b1407;            /* warm near-black */
+  --pb-slate:#6f6052;
+  --pb-line:#efe2d6;
+
+  /* radii (from Dash) */
+  --r-sm:8px; --r-md:16px; --r-lg:24px; --r-pill:40px;
+
+  /* shadows (from Dash, unchanged) */
+  --shadow-panel:0 10px 15px #0000001a,0 34px 74px #00000014;
+  --shadow-card:0 10px 20px -4px #0000001a;
+
+  /* warmed gradients */
+  --grad-text:linear-gradient(90deg,#ff6600,#ff4d6d);
+  --grad-hero-ground:linear-gradient(#ffe6d000,#ffe1c9 25%,#ffeede 50%,#ffe1c9 75%,#fff);
+  --glow-warm:radial-gradient(circle at 50% 120%,#ff8a3d,#ffd9b0 75%,transparent);
+  --glow-coral:radial-gradient(circle at 50% 120%,#ff4d6d,#ffd9b0 75%,transparent);
+  --grad-cta:linear-gradient(90deg,#ff7a00,#ff4d6d);
+
+  /* type (Red Hat = what Dash actually ships for UI; free + close to Mark OT) */
+  --font-display:'Red Hat Display',system-ui,sans-serif;
+  --font-ui:'Red Hat Text',system-ui,sans-serif;
+
+  /* TYPE SCALE — one modular progression, fluid clamp(min → vw → max).
+     Desktop rungs: 12·14·16·18·24·30·40·94. Steps stay small (~1.12) at text
+     sizes for legibility and widen (~1.25–1.33) at display sizes — standard practice.
+     vw factors reach max around a ~1440px viewport. */
+  --fs-h1:clamp(44px,7.6vw,94px);    /* hero display */
+  --fs-h2:clamp(30px,4vw,40px);      /* section headings */
+  --fs-stat:clamp(24px,2.4vw,30px);  /* big numbers / KPIs (30 = 24×1.25) */
+  --fs-h3:clamp(20px,1.7vw,24px);    /* sub-heads / card titles */
+  --fs-lead:clamp(16px,1.25vw,18px); /* intro paragraph under a heading */
+  --fs-body:clamp(15px,1.1vw,16px);  /* default reading body */
+  --fs-ui:clamp(13px,0.97vw,14px);   /* workhorse UI / labels (Dash default) */
+  --fs-cap:clamp(11px,0.83vw,12px);  /* eyebrows, pills, captions, meta */
+  --lh-tight:1.1;                    /* headings */
+  --lh-lead:1.5;                     /* short intro paragraphs */
+  --lh-body:1.6;                     /* long body copy */
+
+  --max:1200px;
+}

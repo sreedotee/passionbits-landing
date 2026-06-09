@@ -1,0 +1,30 @@
+/* =====================================================================
+   GRABBED UI ELEMENTS — dashsocial.com (Webflow)  [raw reference]
+   Pulled live from dash-social.shared.min.css on 2026-06-09.
+   These are the literal values; tokens.css warms them to PassionBits.
+   Fonts: "Mark OT" (display, not free) + Red Hat Display / Red Hat Text (UI).
+   ===================================================================== */
+
+/* Signature gradient keyword text (purple -> blue) */
+.ds-gradient-text{
+  background:linear-gradient(90deg,#ae61f2,#177ef7);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+/* Hero vertical ground fade (transparent -> lavender/blue -> white) */
+.ds-hero-ground{
+  background:linear-gradient(#c1ddff00,#cadffe 25%,#eae4f9 50%,#c6defe 75%,#fff);
+}
+
+/* Bottom-center radial glows (sit behind product panels) */
+.ds-glow-blue{ background:radial-gradient(circle at 50% 120%,#177ef7,#dcb5ff 75%,transparent); }
+.ds-glow-pink{ background:radial-gradient(circle at 50% 120%,#fd63a2,#dcb5ff 75%,transparent); }
+
+/* Floating product panel (the layered dashboards) */
+.ds-panel{ border-radius:24px; box-shadow:0 10px 15px #0000001a,0 34px 74px #00000014; }
+/* Smaller floating card / chip */
+.ds-card{  border-radius:16px; box-shadow:0 10px 20px -4px #0000001a; }
+
+/* Radii scale used across the site: 8 / 16 / 24 / 40 (pills 40-100) */
+/* Palette: blue #177ef7 · ltblue #afd4ff · purple #ae61f2 · lavender #dcb5ff
+            pink #fd63a2 · magenta #cf0c5c · ink #0c2645 · field bg #f0f7ff */

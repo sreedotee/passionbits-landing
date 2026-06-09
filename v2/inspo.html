@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PassionBits — UI Artifact Inspo Launchpad</title>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800&family=Red+Hat+Text:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="tokens.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-ui);color:var(--pb-ink);background:
+  radial-gradient(120% 60% at 50% -10%, #fff6ee 0%, #fff 55%),#fff;-webkit-font-smoothing:antialiased;padding:48px 24px 80px}
+.wrap{max-width:1180px;margin:0 auto}
+h1{font-family:var(--font-display);font-weight:800;font-size:var(--fs-h2);letter-spacing:-.02em}
+.lede{font-family:var(--font-ui);color:var(--pb-slate);font-size:var(--fs-lead);line-height:var(--lh-lead);margin:12px 0 6px;max-width:680px}
+.note{font-family:var(--font-ui);font-size:var(--fs-cap);color:var(--pb-slate);background:var(--pb-peach-50);
+  border:1px solid var(--pb-line);border-radius:var(--r-sm);padding:8px 12px;display:inline-block;margin-top:14px}
+.note b{color:var(--pb-orange-600)}
+
+.group{margin-top:40px}
+.group__h{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.group__h h2{font-family:var(--font-display);font-weight:800;font-size:var(--fs-h3);letter-spacing:-.02em}
+.group__h .ln{flex:1;height:1px;background:var(--pb-line)}
+.openall{font-family:var(--font-display);font-weight:700;font-size:var(--fs-cap);cursor:pointer;
+  background:var(--pb-ink);color:#fff;border:0;border-radius:var(--r-pill);padding:7px 14px;white-space:nowrap}
+.openall:hover{background:var(--pb-orange)}
+.group--star .group__h h2{color:var(--pb-orange-600)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.card{background:#fff;border:1px solid var(--pb-line);border-radius:var(--r-md);padding:18px;
+  box-shadow:var(--shadow-card);display:flex;flex-direction:column}
+.card--star{border-color:var(--pb-amber);box-shadow:0 10px 24px rgba(255,102,0,.14)}
+.card h3{font-family:var(--font-display);font-weight:700;font-size:var(--fs-ui);margin-bottom:3px}
+.card .sub{font-family:var(--font-ui);font-size:var(--fs-cap);color:var(--pb-slate);line-height:1.4;margin-bottom:12px}
+.links{display:flex;flex-direction:column;gap:7px;margin-top:auto}
+.links a{display:flex;align-items:center;gap:8px;text-decoration:none;font-family:var(--font-ui);
+  font-weight:500;font-size:var(--fs-ui);color:var(--pb-ink);background:var(--pb-peach-50);
+  border:1px solid var(--pb-line);border-radius:var(--r-sm);padding:8px 11px;transition:.15s}
+.links a:hover{background:#fff;border-color:var(--pb-orange);color:var(--pb-orange-600);transform:translateX(2px)}
+.links a .src{margin-left:auto;font-size:var(--fs-cap);color:var(--pb-slate);font-weight:600}
+.links a:hover .src{color:var(--pb-orange)}
+.links a .ar{opacity:.4}.links a:hover .ar{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>UI Artifact Inspo — launchpad</h1>
+  <p class="lede">Every reference for the hero metric cards + content-gaps cards, grouped by artifact. Click a link to open it, or hit <b>Open all</b> on a group.</p>
+  <div class="note">⚠️ <b>Allow pop-ups</b> for localhost so “Open all” can open the tabs. Pinterest/Dribbble block iframe embeds, so these open in new tabs rather than inline.</div>
+
+  <!-- ============ DIRECT NICHE ============ -->
+  <section class="group group--star">
+    <div class="group__h"><h2>⭐ Direct niche — real products, same exact metrics</h2><span class="ln"></span><button class="openall">Open all</button></div>
+    <div class="cards">
+      <div class="card card--star">
+        <h3>Atria — “Radar” grades</h3>
+        <div class="sub">Scores each creative A–D on ROAS / hook rate / retention. This IS your hook-score + ROI artifact.</div>
+        <div class="links">
+          <a href="https://tryatria.com" target="_blank" rel="noopener">Atria homepage <span class="src">site</span><span class="ar">↗</span></a>
+          <a href="https://pages.tryatria.com/case-studies/motion-alternatives" target="_blank" rel="noopener">Case study (UI shots) <span class="src">site</span><span class="ar">↗</span></a>
+        </div>
+      </div>
+      <div class="card card--star">
+        <h3>Motion</h3>
+        <div class="sub">Auto hook-rate metrics + creative analytics charts.</div>
+        <div class="links"><a href="https://motionapp.com" target="_blank" rel="noopener">Motion homepage <span class="src">site</span><span class="ar">↗</span></a></div>
+      </div>
+      <div class="card card--star">
+        <h3>Foreplay</h3>
+        <div class="sub">Creative-discovery cards + ad grid (the “creatives” dashboard).</div>
+        <div class="links"><a href="https://foreplay.co" target="_blank" rel="noopener">Foreplay homepage <span class="src">site</span><span class="ar">↗</span></a></div>
+      </div>
+      <div class="card card--star">
+        <h3>Side-by-side screenshots</h3>
+        <div class="sub">All competitors’ UIs compared in one page + hook-rate definition.</div>
+        <div class="links">
+          <a href="https://www.gethookd.ai/blog/foreplay-vs-atria-vs-magicbrief-vs-gethookd" target="_blank" rel="noopener">GetHookd comparison <span class="src">blog</span><span class="ar">↗</span></a>
+          <a href="https://www.marpipe.com/ad-glossary/hook-rate" target="_blank" rel="noopener">Marpipe — hook rate <span class="src">glossary</span><span class="ar">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HERO ============ -->
+  <section class="group">
+    <div class="group__h"><h2>Hero artifacts</h2><span class="ln"></span><button class="openall">Open all</button></div>
+    <div class="cards">
+      <div class="card">
+        <h3>Abstracted dashboard (hero)</h3>
+        <div class="sub">Minimal, simplified, floating glass cards.</div>
+        <div class="links">
+          <a href="https://dribbble.com/tags/saas-hero" target="_blank" rel="noopener">saas-hero <span class="src">Dribbble</span><span class="ar">↗</span></a>
+          <a href="https://dribbble.com/tags/glassmorphism_card" target="_blank" rel="noopener">glassmorphism-card <span class="src">Dribbble</span><span class="ar">↗</span></a>
+          <a href="https://dribbble.com/tags/analytics-dashboard-ui" target="_blank" rel="noopener">analytics-dashboard-ui <span class="src">Dribbble</span><span class="ar">↗</span></a>
+          <a href="https://www.pinterest.com/darguetap/metrics-ui/" target="_blank" rel="noopener">metrics-ui board <span class="src">Pinterest</span><span class="ar">↗</span></a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Engagement metric</h3>
+        <div class="sub">Number + trend arrow + sparkline cards.</div>
+        <div class="links">
+          <a href="https://dribbble.com/tags/metrics" target="_blank" rel="noopener">metrics <span class="src">Dribbble</span><span class="ar">↗</span></a>
+          <a href="https://www.stan.vision/journal/ui-card-design-examples-best-practices-and-common-patterns" target="_blank" rel="noopener">metric-card patterns <span class="src">article</span><span class="ar">↗</span></a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Mentions</h3>
+        <div class="sub">Social listening / monitoring feeds.</div>
+        <div class="links">
+          <a href="https://dribbble.com/tags/social_listening" target="_blank" rel="noopener">social-listening <span class="src">Dribbble</span><span class="ar">↗</span></a>
+          <a href="https://dribbble.com/tags/media_monitoring" target="_blank" rel="noopener">media-monitoring <span class="src">Dribbble</span><span class="ar">↗</span></a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Hook score</h3>
+        <div class="sub">Gauges, rings, A–D rating cards.</div>
+        <div class="links">
+          <a href="https://dribbble.com/tags/score-ui" target="_blank" rel="noopener">score-ui <span class="src">Dribbble</span><span class="ar">↗</span></a>
+          <a href="https://dribbble.com/tags/rating-ui" target="_blank" rel="noopener">rating-ui <span class="src">Dribbble</span><span class="ar">↗</span></a>
+          <a href="https://dribbble.com/tags/performance-gauge" target="_blank" rel="noopener">performance-gauge <span class="src">Dribbble</span><span class="ar">↗</span></a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>ROI / revenue</h3>
+        <div class="sub">Revenue cards + mini bar charts.</div>
+        <div class="links">
+          <a href="https://www.pinterest.com/ideas/revenue-dashboard-design/961950676544/" target="_blank" rel="noopener">revenue-dashboard <span class="src">Pinterest</span><span class="ar">↗</span></a>
+          <a href="https://www.pinterest.com/ideas/fintech-dashboard-ui/900189534033/" target="_blank" rel="noopener">fintech-dashboard-ui <span class="src">Pinterest</span><span class="ar">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTENT GAPS ============ -->
+  <section class="group">
+    <div class="group__h"><h2>Content-gaps artifacts</h2><span class="ln"></span><button class="openall">Open all</button></div>
+    <div class="cards">
+      <div class="card">
+        <h3>Personas</h3>
+        <div class="sub">Persona / audience-segment / profile cards.</div>
+        <div class="links">
+          <a href="https://www.pinterest.com/ideas/persona-card-design/906568047587/" target="_blank" rel="noopener">persona-card-design <span class="src">Pinterest</span><span class="ar">↗</span></a>
+          <a href="https://www.pinterest.com/monigleverbal/audience-persona-design/" target="_blank" rel="noopener">audience-persona board <span class="src">Pinterest</span><span class="ar">↗</span></a>
+          <a href="https://www.pinterest.com/ideas/profile-card-ui/894513336055/" target="_blank" rel="noopener">profile-card-ui <span class="src">Pinterest</span><span class="ar">↗</span></a>
+          <a href="https://www.pinterest.com/springfels/ux-personas/" target="_blank" rel="noopener">ux-personas board <span class="src">Pinterest</span><span class="ar">↗</span></a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Formats</h3>
+        <div class="sub">Format breakdown, reel/video performance cards.</div>
+        <div class="links">
+          <a href="https://dribbble.com/tags/video-analytics" target="_blank" rel="noopener">video-analytics <span class="src">Dribbble</span><span class="ar">↗</span></a>
+          <a href="https://dribbble.com/tags/video%20reel" target="_blank" rel="noopener">video-reel <span class="src">Dribbble</span><span class="ar">↗</span></a>
+          <a href="https://dribbble.com/tags/performance-analytics" target="_blank" rel="noopener">performance-analytics <span class="src">Dribbble</span><span class="ar">↗</span></a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Messaging angles</h3>
+        <div class="sub">Quote / copy bubbles, ad-copy variations.</div>
+        <div class="links">
+          <a href="https://www.anyword.com/blog/pinterest-ads-copy-formats-and-examples" target="_blank" rel="noopener">ad-copy formats <span class="src">article</span><span class="ar">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+document.querySelectorAll('.openall').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const links=btn.closest('.group').querySelectorAll('.links a');
+    links.forEach((a,i)=>setTimeout(()=>window.open(a.href,'_blank','noopener'), i*250));
+  });
+});
+</script>
+</body>
+</html>

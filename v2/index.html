@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PassionBits — v2 Mock (Dash structure, warm)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800&family=Red+Hat+Text:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="tokens.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-ui);color:var(--pb-ink);background:#fff;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:var(--lh-tight)}
+.gtext{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{font-family:var(--font-display);font-weight:700;border:0;cursor:pointer;border-radius:var(--r-pill);padding:13px 24px;font-size:var(--fs-body)}
+.btn--primary{background:var(--pb-orange);color:#fff}
+.btn--dark{background:var(--pb-ink);color:#fff}
+.eyebrow{font-family:var(--font-display);font-weight:700;font-size:var(--fs-cap);letter-spacing:.14em;text-transform:uppercase;color:var(--pb-orange-600)}
+
+/* ---------- HERO (orange field · corner-pinned cards) ---------- */
+.hero{position:relative;overflow:hidden;text-align:center;color:#fff;
+  min-height:55vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:88px 24px;margin:0;border-radius:0;/*SHOT*/
+  background:
+    radial-gradient(125% 120% at 50% 50%, rgba(110,34,0,0) 52%, rgba(110,34,0,.30) 100%),
+    radial-gradient(78% 74% at 50% 36%, #ffb867 0%, #ff8d34 28%, #ff6a06 60%, #ee5a00 100%)}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.9;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.14) 0 1px,transparent 1px 80px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.09) 0 1px,transparent 1px 80px);
+  /* grid stays whole; it's hidden under the glass by the tiles' backdrop blur, not by masking */
+  -webkit-mask-image:radial-gradient(150% 135% at 50% 42%,#000 70%,transparent 100%);
+  mask-image:radial-gradient(150% 135% at 50% 42%,#000 70%,transparent 100%)}
+.hero__inner{position:relative;z-index:3;max-width:900px;margin:0 auto}
+
+.namepill{display:inline-flex;align-items:center;gap:9px;background:#fff;color:var(--pb-ink);
+  border-radius:var(--r-pill);padding:6px 18px 6px 6px;box-shadow:0 8px 22px rgba(120,40,0,.22);
+  font-family:var(--font-ui);font-weight:600;font-size:var(--fs-ui);margin-bottom:24px}
+.namepill .stack{display:inline-flex;align-items:center}
+.namepill .stack img{width:26px;height:26px;border-radius:50%;border:2px solid #fff;object-fit:cover;object-position:center top;
+  margin-left:-9px;box-shadow:0 2px 5px rgba(120,40,0,.25)}
+.namepill .stack img:first-child{margin-left:0}
+.namepill .grn{width:8px;height:8px;border-radius:50%;background:#33d27f;box-shadow:0 0 0 3px #33d27f33}
+
+.hero h1{font-family:var(--font-display);font-weight:800;letter-spacing:-.035em;line-height:.96;
+  font-size:var(--fs-h1);color:#fff;text-shadow:0 2px 40px rgba(120,40,0,.22)}
+.hero h1 .kw{position:relative;white-space:nowrap}
+.hero h1 .kw::after{content:"";position:absolute;left:-.03em;right:-.03em;bottom:.06em;height:.12em;
+  border-radius:.1em;background:rgba(43,205,128,.82);
+  box-shadow:0 0 .5em rgba(43,205,128,.6)}
+.hero p.sub{font-family:var(--font-ui);font-size:var(--fs-lead);line-height:var(--lh-lead);color:rgba(255,255,255,.92);
+  max-width:540px;margin:20px auto 0}
+.hero p.sub b{color:#fff;font-weight:700}
+.hero .cta{margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero .btn--light{background:#fff;color:var(--pb-ink)}
+.hero .btn--ghost{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.4)}
+.hero .field{display:inline-flex;align-items:center;background:#fff;border-radius:var(--r-pill);
+  padding:5px 5px 5px 20px;box-shadow:0 10px 26px rgba(120,40,0,.22)}
+.hero .field input{border:0;outline:0;background:transparent;font-family:var(--font-ui);font-size:var(--fs-body);width:188px;color:var(--pb-ink)}
+.hero .field input::placeholder{color:var(--pb-slate)}
+.hero .field .btn--primary{padding:11px 22px}
+
+/* ---------- HERO STAGE: dashboard + floating cards (scales with viewport via one em base) ---------- */
+.hero__stage{position:relative;z-index:2;width:100%;max-width:65em;height:23.5em;margin:1.4em auto 0;flex:none;
+  font-size:clamp(11px,1.3vw,21px)}
+
+/* central performance dashboard */
+.dash{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:38em;max-width:96%;
+  background:#fff;border-radius:1.1em;box-shadow:0 30px 64px rgba(95,32,0,.30);padding:0;overflow:hidden;text-align:left}
+.dash>img{display:block;width:100%;height:auto}
+.dash .dav{position:absolute;top:-1.3em;right:1.1em;width:2.6em;height:2.6em;border-radius:50%;
+  border:.18em solid #fff;z-index:4;box-shadow:0 .5em 1.1em rgba(95,32,0,.28);
+  background:radial-gradient(circle at 35% 30%,#ffb9d0,#d34f86)}
+.dash__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.875em}
+.dash__top .t{font-family:var(--font-display);font-weight:800;font-size:1.19em;color:var(--pb-ink)}
+.dash__top .dots{color:var(--pb-line);font-size:1.25em;letter-spacing:1px}
+.dash__grid{display:grid;grid-template-columns:1fr 1fr;gap:.75em}
+.dcard{background:var(--pb-peach-50);border:1px solid var(--pb-line);border-radius:.875em;padding:.8125em}
+.dcard .h{display:flex;align-items:center;justify-content:space-between;font-family:var(--font-display);
+  font-weight:700;font-size:.78em;color:var(--pb-slate);margin-bottom:.6875em}
+.dcard .h .chev{opacity:.55}
+.thumbs{display:grid;grid-template-columns:1fr 1fr;gap:.4375em}
+.thumbs img{width:100%;height:2.875em;object-fit:cover;border-radius:.5em;display:block}
+.bars{display:flex;align-items:flex-end;gap:.4375em;height:3.75em}
+.bars i{flex:1;background:var(--pb-orange);border-radius:.25em .25em .12em .12em;opacity:.92}
+.dcard .foot{margin-top:.6875em;font-family:var(--font-display);font-weight:800;font-size:.875em;color:var(--pb-ink)}
+.dcard .foot small{font-family:var(--font-ui);font-weight:600;font-size:.6875em;color:var(--pb-slate);display:block;margin-top:.15em}
+
+/* floating metric cards */
+.f{position:absolute;background:#fff;border-radius:1em;box-shadow:0 16px 40px rgba(95,32,0,.18),0 3px 9px rgba(95,32,0,.10);
+  padding:.6875em .875em;text-align:left}
+.f .k{font-family:var(--font-display);font-weight:700;font-size:.6875em;color:var(--pb-slate)}
+.f .v{font-family:var(--font-display);font-weight:800;font-size:1.5625em;color:var(--pb-ink);line-height:1.05;letter-spacing:-.02em}
+.f .v small{font-size:.52em;color:var(--pb-slate);font-weight:700}
+.f .d{font-family:var(--font-ui);font-weight:600;font-size:.656em;margin-top:.15em}
+.f .up{color:#1aa251}.f .dn{color:#e23b00}
+.f .spark{display:flex;align-items:flex-end;gap:.1875em;height:1.5em;margin-top:.3em}
+.f .spark i{width:.3125em;background:var(--pb-amber);border-radius:.12em}
+.f--ment{top:0;left:calc(50% - 15.75em);transform:rotate(-3deg)}
+.f--eng{top:7.375em;left:.375em;transform:rotate(-5deg)}
+.f--hook{top:1.4em;right:.4em;transform:rotate(4deg)}
+.f--roi{top:10.3em;right:0;transform:rotate(5deg);padding:.7em;
+  background:linear-gradient(160deg,#ffdd95,#ff9a3d)}
+.f--roi .rings{position:relative;width:6.2em;height:6.2em;display:grid;place-items:center}
+.f--roi .rg{position:absolute;border-radius:50%;border:.16em solid rgba(255,255,255,.6)}
+.f--roi .rg1{inset:0}.f--roi .rg2{inset:1em}
+.f--roi .rg3{inset:2em;background:rgba(255,255,255,.32);border:0}
+.f--roi .rc{position:relative;text-align:center;color:#fff;text-shadow:0 1px 4px rgba(150,60,0,.4)}
+.f--roi .rc b{font-family:var(--font-display);font-weight:800;font-size:1.5em;display:block;line-height:1;letter-spacing:-.02em}
+.f--roi .rc small{font-size:.6em;font-weight:700;letter-spacing:.08em}
+.f--sugg{bottom:.5em;left:.4em;display:flex;align-items:center;gap:.6em;max-width:15.2em;
+  border:1px solid var(--pb-line);border-radius:1.15em;padding:.7em .95em;transform:rotate(-2deg)}
+.f--sugg::after{content:"";position:absolute;left:1.7em;bottom:-.42em;width:.85em;height:.85em;background:#fff;
+  border-right:1px solid var(--pb-line);border-bottom:1px solid var(--pb-line);transform:rotate(45deg)}
+.f--sugg .s{flex:none;width:1.9em;height:1.9em;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:.92em;
+  background:radial-gradient(circle at 34% 28%,#ff9ec0,#e0467f);
+  box-shadow:0 .3em .6em rgba(224,70,127,.42),inset 0 .12em .2em rgba(255,255,255,.6)}
+.f--sugg span{font-family:var(--font-ui);font-size:.719em;font-weight:600;color:var(--pb-slate);line-height:1.3}
+
+/* creator avatars + 3D accents */
+.av2{position:absolute;width:2.875em;height:2.875em;border-radius:50%;border:.1875em solid #fff;
+  box-shadow:0 10px 22px rgba(95,32,0,.28)}
+.av2--1{top:5.625em;right:6.5em;background:radial-gradient(circle at 35% 30%,#ffd0a8,#e07b3a)}
+/* glossy 3D floating accent icons (echo the reference's coins/lightning) */
+.gi{position:absolute;border-radius:.78em;display:grid;place-items:center;color:#fff;font-size:1em;
+  width:2.5em;height:2.5em;line-height:1;
+  box-shadow:0 .7em 1.2em rgba(95,32,0,.34),inset 0 .14em .24em rgba(255,255,255,.65)}
+.gi--play{top:2.4em;left:.6em;transform:rotate(-8deg);
+  background:radial-gradient(circle at 32% 26%,#ffb877,#ff6a06)}
+.gi--bolt{top:9em;right:.8em;transform:rotate(9deg);
+  background:radial-gradient(circle at 32% 26%,#ffe3a0,#ff9a1f)}
+/* 3D pins */
+.pin{position:absolute;top:-.75em;left:1.25em;width:1.75em;height:1.75em;border-radius:50%;
+  background:radial-gradient(circle at 33% 27%,rgba(255,255,255,.85),transparent 42%),
+             radial-gradient(circle at 50% 46%,#6a93ff,#274ed4);
+  box-shadow:0 7px 13px rgba(10,20,80,.4),inset 0 -3px 6px rgba(0,0,60,.45)}
+.pin--o{background:radial-gradient(circle at 33% 27%,rgba(255,255,255,.9),transparent 42%),
+             radial-gradient(circle at 50% 46%,#ff8a4d,#e23b00);
+  box-shadow:0 7px 13px rgba(120,30,0,.4),inset 0 -3px 6px rgba(80,20,0,.45)}
+
+/* ---------- BRAND GLOW (logo L-cluster rendered as frosted glass tiles) ---------- */
+.brandglow{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;
+  -webkit-mask-image:radial-gradient(150% 135% at 50% 46%,transparent 18%,#000 78%);
+          mask-image:radial-gradient(150% 135% at 50% 46%,transparent 18%,#000 78%)}
+/* --s scales with the viewport so the logo glass grows/shrinks with the hero */
+.lglow{position:absolute;--s:clamp(116px,11.5vw,176px);--g:calc(var(--s)*2);width:var(--g);height:var(--g)}
+/* one tile of the L: clearly visible frosted glass + glossy sheen + rim light.
+   tiles sit 10px short of the cell so the gap reads them as 3 distinct logo boxes */
+.lglow .sq{position:absolute;width:calc(var(--s) - 10px);height:calc(var(--s) - 10px);border-radius:20px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.75) 0%,rgba(255,255,255,.32) 38%,rgba(255,255,255,.12) 64%,rgba(255,246,234,.22) 100%),
+    rgba(255,255,255,.14);
+  /* frost the field behind the tile → the thin grid lines blur away only under the glass */
+  -webkit-backdrop-filter:blur(7px) saturate(1.05);backdrop-filter:blur(7px) saturate(1.05);
+  border:1px solid rgba(255,255,255,.7);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.9),inset 0 0 44px rgba(255,255,255,.22),
+             0 22px 54px rgba(255,140,60,.22)}
+/* 2x2 internal subdivision (like the reference panels) */
+.lglow .sq::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:.5;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 1px,transparent 1px calc(var(--s)/2)),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.35) 0 1px,transparent 1px calc(var(--s)/2))}
+/* L = 2x2 minus top-left → top-right + bottom-left + bottom-right (the logo) */
+.lglow .tr{left:var(--s);top:0}
+.lglow .bl{left:0;top:var(--s)}
+.lglow .br{left:var(--s);top:var(--s)}
+/* top-right = the logo's vivid accent box → warm orange glow */
+.lglow .tr{box-shadow:inset 0 1.5px 0 rgba(255,255,255,.9),inset 0 0 50px rgba(255,205,160,.4),
+             0 22px 54px rgba(255,110,30,.32)}
+/* warm light bloom behind the whole cluster */
+.lglow::after{content:"";position:absolute;left:-45%;top:-45%;width:190%;height:190%;z-index:-1;
+  background:radial-gradient(circle at 42% 38%,rgba(255,236,210,.5),rgba(255,170,90,.18) 40%,transparent 62%)}
+.lglow--tr{top:-46px;right:-28px;transform:rotate(4deg);animation:lfloat 9s ease-in-out infinite}
+.lglow--bl{bottom:-46px;left:-28px;transform:rotate(-4deg);animation:lfloat 11s ease-in-out infinite reverse}
+/* float uses the individual `translate` property so it doesn't clobber the rotate transform */
+@keyframes lfloat{0%,100%{translate:0 0}50%{translate:0 -12px}}
+@media(prefers-reduced-motion:reduce){.lglow{animation:none!important}}
+
+/* ---------- SCALE / CREATOR NETWORK (Figma node 52:170) ---------- */
+.scale{position:relative;overflow:hidden;padding:90px 0 100px;
+  background:radial-gradient(120% 90% at 50% -10%, #fff6ee 0%, #fff 60%),#fff}
+.scale::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(var(--pb-peach-100) 1.4px,transparent 1.5px);background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(95% 70% at 50% 22%,#000 0%,transparent 72%);
+  mask-image:radial-gradient(95% 70% at 50% 22%,#000 0%,transparent 72%)}
+.scale__inner{position:relative;z-index:2}
+.scale__head{text-align:center;max-width:840px;margin:0 auto}
+.scale__head .eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:16px}
+.scale__head h2{font-size:var(--fs-h2);font-weight:800}
+.scale__head p{font-family:var(--font-ui);color:var(--pb-slate);font-size:var(--fs-lead);line-height:var(--lh-lead);margin:16px auto 0;max-width:720px}
+.scale__head p a{color:var(--pb-orange);font-weight:600;text-decoration:underline}
+
+/* ===== GLOBE STAGE: rotating globe crowned by a creator card that cycles by region ===== */
+.globe-stage{position:relative;max-width:1120px;margin:40px auto 0;height:clamp(470px,49vw,610px)}
+
+/* stats — numbers all black */
+.gstat{z-index:4}
+.gstat b{display:block;font-family:var(--font-display);font-weight:800;letter-spacing:-.03em;line-height:1;
+  font-size:clamp(34px,4.6vw,58px);color:var(--pb-ink)}
+.gstat b em{font-style:normal;color:inherit}
+.gstat span{display:block;font-family:var(--font-ui);font-size:var(--fs-ui);color:var(--pb-slate);margin-top:8px}
+/* top stats pinned to the top corners */
+.gstat-top{display:contents}
+.gstat--tl,.gstat--tr{position:absolute;top:3%;max-width:40%}
+.gstat--tl{left:1%}
+.gstat--tr{right:1%;text-align:right}
+/* the other two sit UNDER the globe as a centred row */
+.gstat-bottom{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:4;
+  display:flex;gap:clamp(56px,16vw,230px);text-align:center}
+
+/* positioning context for globe + card */
+.globe-core{position:absolute;inset:0;z-index:2;--gd:clamp(580px,66vw,940px)}
+/* the globe — real orthographic sphere; wide and shallow (only top ~44% shown = pushed under) */
+.globe{position:absolute;left:50%;bottom:104px;transform:translateX(-50%);
+  width:var(--gd);height:calc(var(--gd) * .44);overflow:hidden;z-index:1}
+.globe canvas{position:absolute;left:0;top:0;width:var(--gd);height:var(--gd);display:block}
+/* soft ground shadow so the white globe separates from the white section */
+.gshadow{position:absolute;left:50%;bottom:94px;transform:translateX(-50%);
+  width:calc(var(--gd) * .7);height:26px;border-radius:50%;z-index:0;
+  background:radial-gradient(ellipse,rgba(150,55,0,.20),transparent 72%);filter:blur(9px)}
+
+/* the creator card stack that crowns the globe */
+.gcardstack{position:absolute;left:50%;top:0;transform:translateX(-50%);z-index:5;width:clamp(198px,21vw,240px)}
+.gcard{border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--pb-line);
+  box-shadow:0 26px 54px rgba(95,32,0,.22)}
+.gcard--ghost{position:absolute;inset:0;z-index:0}
+.gcard--g1{transform:rotate(6deg) translate(11px,9px);opacity:.85}
+.gcard--g2{transform:rotate(-6deg) translate(-11px,5px);opacity:.6}
+.gcard--front{position:relative;z-index:2;transition:opacity .35s ease,transform .35s ease}
+.gcard--front.is-swap{opacity:0;transform:translateY(9px) scale(.98)}
+.gcard__media{aspect-ratio:4/5;overflow:hidden;background:#f4ece6}
+.gcard__media img{width:100%;height:100%;object-fit:cover;display:block}
+.gcard__foot{display:flex;align-items:center;gap:9px;padding:10px 12px}
+.gcard__av{width:30px;height:30px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
+.gcard__meta{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.gcard__meta b{font-family:var(--font-display);font-weight:700;font-size:var(--fs-ui);color:var(--pb-ink)}
+.gcard__meta .sub{font-family:var(--font-ui);font-size:var(--fs-cap);color:var(--pb-slate);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gcard__meta .sub em{font-style:normal;color:var(--pb-orange-600);font-weight:600}
+@media(prefers-reduced-motion:reduce){.globe .gsurface::before,.gpin--active::after{animation:none}}
+
+/* ---------- CONTENT GAPS ---------- */
+.gaps{padding:40px 0 90px}
+.gaps__head{text-align:center;max-width:880px;margin:0 auto 40px}
+.gaps__head h2{font-size:var(--fs-h2);font-weight:800}
+.gaps__head p{font-family:var(--font-ui);color:var(--pb-slate);font-size:var(--fs-lead);line-height:var(--lh-lead);margin-top:14px;max-width:720px;margin-left:auto;margin-right:auto}
+/* ===== DISCOVERY RADAR: magnifier scans, finds float around it ===== */
+.gaps__stage{position:relative;overflow:hidden;
+  background:radial-gradient(closest-side at 50% 50%,rgba(255,138,56,.12),rgba(255,150,75,.045) 52%,transparent 76%);
+  min-height:600px;display:grid;place-items:center;padding:40px}
+
+/* ===== graceful glowing radar field (light mode) ===== */
+.radar{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+/* soft luminous core halo behind the lens */
+.glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:340px;height:300px;border-radius:50%;filter:blur(8px);
+  background:radial-gradient(closest-side,rgba(255,140,55,.30),rgba(255,150,70,.10) 55%,transparent 78%);
+  animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.85;transform:translate(-50%,-50%) scale(1)}
+  50%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
+/* concentric rounded-rectangle rings — graduated opacity, soft outer glow */
+.orbit{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  border:1.5px solid rgba(255,118,38,.22);
+  box-shadow:0 0 34px rgba(255,140,60,.10),inset 0 0 30px rgba(255,165,95,.05)}
+.o1{width:230px;height:150px;border-radius:40px;border-color:rgba(255,108,28,.32)}
+.o2{width:410px;height:256px;border-radius:54px;border-color:rgba(255,116,36,.24)}
+.o3{width:590px;height:362px;border-radius:68px;border-color:rgba(255,126,46,.17)}
+.o4{width:770px;height:468px;border-radius:82px;border-color:rgba(255,138,58,.12);border-style:dashed}
+.o5{width:950px;height:574px;border-radius:96px;border-color:rgba(255,150,72,.07)}
+/* soft expanding pulse = active scan */
+.pulse{position:absolute;left:50%;top:50%;width:230px;height:150px;border-radius:40px;
+  border:2px solid rgba(255,120,40,.32);transform:translate(-50%,-50%) scale(.7);
+  animation:pulse 4.6s ease-out infinite}
+.pulse--2{animation-delay:2.3s}
+@keyframes pulse{0%{transform:translate(-50%,-50%) scale(.7);opacity:.5}
+  80%{opacity:0}100%{transform:translate(-50%,-50%) scale(2.9);opacity:0}}
+
+/* the magnifying glass — centerpiece, sits inside the smallest orbit */
+.lens{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;width:104px;height:104px}
+.lens__glass{position:absolute;inset:0;border-radius:50%;border:7px solid #262223;
+  background:radial-gradient(circle at 34% 28%,#fffefb 0%,#ffe9d6 24%,#ffc99e 58%,#ff9f5f 100%);
+  box-shadow:0 22px 44px rgba(95,32,0,.34),0 0 54px rgba(255,120,40,.38),
+    inset 0 4px 12px rgba(255,255,255,.75),inset -10px -12px 26px rgba(255,128,42,.4)}
+.lens__glass::after{content:"";position:absolute;left:18%;top:13%;width:38%;height:26%;border-radius:50%;
+  background:linear-gradient(120deg,rgba(255,255,255,.95),rgba(255,255,255,0));transform:rotate(-22deg)}
+.lens__handle{position:absolute;width:26px;height:62px;right:-14px;bottom:-40px;
+  border-radius:7px;transform:rotate(-45deg);transform-origin:top center;
+  background:linear-gradient(180deg,#3a3536 0%,#1b1718 100%);
+  box-shadow:0 10px 18px rgba(0,0,0,.3)}
+.lens__handle::after{content:"";position:absolute;top:-3px;left:50%;transform:translateX(-50%);
+  width:30px;height:9px;border-radius:5px;background:#262223}
+
+/* ===== content-aware found artefacts ===== */
+.art{position:absolute;z-index:5;background:#fff;border:1px solid var(--pb-line);
+  border-radius:16px;padding:11px 13px;box-shadow:0 16px 34px rgba(95,32,0,.16);
+  animation:float 6s ease-in-out infinite;width:max-content}
+.art__ey{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-display);
+  font-weight:700;font-size:var(--fs-cap);letter-spacing:.06em;text-transform:uppercase;color:var(--pb-orange);margin-bottom:8px}
+.art__ey::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--pb-orange)}
+
+/* persona → profile chip with avatar */
+.art--persona .pbody{display:flex;align-items:center;gap:10px}
+.pav{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:19px;
+  background:radial-gradient(circle at 34% 28%,#ffd9bd,#ff8a4d);box-shadow:0 4px 10px rgba(255,102,0,.28)}
+.pmeta{display:flex;flex-direction:column;line-height:1.2}
+.pmeta b{font-family:var(--font-display);font-weight:700;font-size:var(--fs-ui);color:var(--pb-ink)}
+.pmeta span{font-family:var(--font-ui);font-size:var(--fs-cap);color:var(--pb-slate)}
+
+/* messaging angle → quote / copy bubble */
+.art--angle{max-width:236px}
+.art--angle .quote{font-family:var(--font-display);font-weight:600;font-size:var(--fs-ui);line-height:1.34;color:var(--pb-ink)}
+.art--angle .quote .qm{color:var(--pb-orange);font-weight:800}
+
+/* winning format → reel thumbnail card */
+.art--format .fbody{display:flex;align-items:center;gap:11px}
+.reel{position:relative;flex:none;width:46px;height:62px;border-radius:9px;overflow:hidden;background:#eee}
+.reel img{width:100%;height:100%;object-fit:cover;display:block}
+.reel__play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;
+  font-size:9px;color:var(--pb-ink);padding-left:2px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.fmeta{display:flex;flex-direction:column;gap:3px}
+.fmeta b{font-family:var(--font-display);font-weight:700;font-size:var(--fs-ui);color:var(--pb-ink)}
+.fmeta .stat{font-family:var(--font-display);font-weight:700;font-size:var(--fs-cap);color:var(--pb-green,#1aa251)}
+
+/* positions on the orbit system + staggered drift */
+.art--a{top:6%;left:7%;animation-delay:-.2s;--rot:-3deg}
+.art--b{top:4%;right:8%;animation-delay:-2.1s;--rot:3deg}
+.art--c{top:40%;left:1%;animation-delay:-3.4s;--rot:-4deg}
+.art--d{bottom:9%;left:11%;animation-delay:-1.2s;--rot:3deg}
+.art--e{bottom:5%;right:9%;animation-delay:-4.1s;--rot:-2deg}
+.art--f{top:43%;right:1%;animation-delay:-2.8s;--rot:3deg}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--rot,0deg))}
+  50%{transform:translateY(-12px) rotate(var(--rot,0deg))}}
+
+@media(prefers-reduced-motion:reduce){.pulse,.art,.glow{animation:none}}
+
+/* ---------- CTA BAND ---------- */
+.ctaband{margin:0 24px 60px;border-radius:var(--r-lg);background:var(--grad-cta);text-align:center;padding:64px 24px;color:#fff}
+.ctaband h2{font-size:var(--fs-h2);font-weight:800}
+.ctaband .btn{margin-top:22px;background:#fff;color:var(--pb-ink)}
+
+@media(max-width:760px){
+  /* globe stage reflows to a column: top stats, globe + card, bottom stats */
+  .globe-stage{height:auto;display:flex;flex-direction:column;align-items:center;gap:22px}
+  .gstat{position:static!important;max-width:none;text-align:center!important}
+  .gstat-top,.gstat-bottom{position:static;transform:none;display:flex;gap:clamp(28px,9vw,56px);justify-content:center;width:100%}
+  .gstat-top{order:-1}
+  .globe-core{position:relative;inset:auto;width:100%;height:clamp(280px,76vw,400px)}
+  .globe{bottom:0}.gshadow{bottom:-4px}
+}
+@media(max-width:980px){
+  .hero{min-height:auto;padding:80px 22px 48px}.hero__stage{display:none}
+  .gaps__stage{min-height:auto;display:flex;flex-direction:column;align-items:center;gap:14px;padding:32px 20px}
+  .radar{position:relative;left:auto;top:auto;transform:none;width:280px;height:230px;margin-bottom:8px}
+  .o1{width:120px;height:104px}.o2{width:200px;height:172px}.o3{width:280px;height:240px}.o4,.o5{display:none}
+  .glow{width:200px;height:180px}.pulse{width:120px;height:104px}
+  .art{position:static;animation:none;width:100%;max-width:300px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <!-- brand-identity glow: logo L-cluster as frosted glass tiles, set into the field -->
+  <div class="brandglow">
+    <div class="lglow lglow--tr"><span class="sq tr"></span><span class="sq bl"></span><span class="sq br"></span></div>
+    <div class="lglow lglow--bl"><span class="sq tr"></span><span class="sq bl"></span><span class="sq br"></span></div>
+  </div>
+
+  <div class="hero__inner">
+    <span class="namepill"><span class="stack"><img src="../assets/hero-card-1.png" alt=""><img src="../assets/hero-card-2.png" alt=""><img src="../assets/hero-card-3.png" alt=""></span> 10+ creators online <span class="grn"></span></span>
+    <h1>Turn creator content<br>into ads that <span class="kw">win</span></h1>
+    <p class="sub">The <b>one-stop platform</b> for growth teams to brief creators, surface what performs, and scale it — from first post to proven ad.</p>
+    <div class="cta">
+      <div class="field"><input placeholder="Enter your work email" /><button class="btn btn--primary">Book a Demo</button></div>
+      <button class="btn btn--ghost">Explore Creators</button>
+    </div>
+  </div>
+
+  <div class="hero__stage">
+    <!-- central product dashboard (real UI screenshot) -->
+    <div class="dash"><img src="../assets/product-ui.png" alt="PassionBits campaign dashboard — spend, ROAS, creators hired, impressions"></div>
+
+    <!-- floating accent cards (complement the panel; no metric duplication) -->
+    <div class="f f--hook"><span class="pin pin--o"></span><div class="k">Hook Score</div><div class="v">6.5<small>/10</small></div></div>
+    <div class="f f--sugg"><span class="s">✦</span><span>Try a problem-first opening — your top organic hook isn't in paid yet.</span></div>
+
+    <!-- creator avatar + glossy 3D accent icons -->
+    <div class="av2 av2--1"></div>
+    <div class="gi gi--play">▶</div>
+    <div class="gi gi--bolt">⚡</div>
+  </div>
+</section>
+
+<!-- ===== SCALE / CREATOR NETWORK (Figma node 52:170) ===== -->
+<section class="scale">
+ <div class="scale__inner wrap">
+  <div class="scale__head">
+    <span class="eyebrow"><span class="globe">🌐</span> Global creator network</span>
+    <h2>A creator for every audience,<br><span class="gtext">anywhere on the map.</span></h2>
+    <p>Vetted, on-brand creators across every region, language and niche — ready to brief, the moment a winning pattern appears.</p>
+  </div>
+
+  <!-- the globe stage: rotating globe + a creator card that cycles by region -->
+  <div class="globe-stage">
+    <div class="gstat-top">
+      <div class="gstat gstat--tl"><b>20k<em>+</em></b><span>vetted creators</span></div>
+      <div class="gstat gstat--tr"><b>1.4<em>B</em></b><span>monthly reach</span></div>
+    </div>
+
+    <div class="globe-core">
+      <!-- rotating warm globe -->
+      <div class="gshadow"></div>
+      <div class="globe">
+        <canvas id="globeCanvas" aria-hidden="true"></canvas>
+      </div>
+
+      <!-- creator card that swaps content as the globe turns -->
+      <div class="gcardstack">
+        <span class="gcard gcard--ghost gcard--g2"></span>
+        <span class="gcard gcard--ghost gcard--g1"></span>
+        <article class="gcard gcard--front" id="gcard">
+          <div class="gcard__media"><img id="gcImg" src="../assets/hero-card-1.png" alt="Creator content"></div>
+          <div class="gcard__foot">
+            <span class="gcard__av" id="gcAv"></span>
+            <span class="gcard__meta">
+              <b id="gcName">Mariana A.</b>
+              <span class="sub"><span id="gcFlag">🇧🇷</span> <span id="gcCity">São Paulo</span> · <em id="gcNiche">Beauty</em></span>
+            </span>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="gstat-bottom">
+      <div class="gstat gstat--bl"><b>190<em>+</em></b><span>countries</span></div>
+      <div class="gstat gstat--br"><b>32<em>+</em></b><span>content niches</span></div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<!-- ===== CONTENT GAPS ===== -->
+<section class="gaps"><div class="wrap">
+  <div class="gaps__head">
+    <h2>We uncover the content <span class="gtext">gaps</span> your competitors are missing.</h2>
+    <p>We analyze every creative you've published, then map it across personas, angles, and formats — so the blank spots worth scaling jump right out.</p>
+  </div>
+  <div class="gaps__stage">
+    <!-- the scanning engine: magnifier in a graceful glowing radar field -->
+    <div class="radar" aria-hidden="true">
+      <span class="glow"></span>
+      <span class="orbit o5"></span>
+      <span class="orbit o4"></span>
+      <span class="orbit o3"></span>
+      <span class="orbit o2"></span>
+      <span class="orbit o1"></span>
+      <span class="pulse"></span>
+      <span class="pulse pulse--2"></span>
+      <div class="lens">
+        <span class="lens__glass"></span>
+        <span class="lens__handle"></span>
+      </div>
+    </div>
+
+    <!-- found artefacts — each shaped like the thing it represents -->
+
+    <!-- personas → profile chips -->
+    <article class="art art--persona art--a">
+      <span class="art__ey">Underserved persona</span>
+      <div class="pbody">
+        <span class="pav">👨‍💻</span>
+        <span class="pmeta"><b>Engineers</b><span>34–45 · low coverage</span></span>
+      </div>
+    </article>
+    <article class="art art--persona art--d">
+      <span class="art__ey">Underserved persona</span>
+      <div class="pbody">
+        <span class="pav">👶</span>
+        <span class="pmeta"><b>New parents</b><span>0 ads targeting</span></span>
+      </div>
+    </article>
+
+    <!-- messaging angles → copy / quote bubbles -->
+    <article class="art art--angle art--b">
+      <span class="art__ey">Messaging angle</span>
+      <p class="quote"><span class="qm">“</span>Cut your costs in half — without cutting corners.<span class="qm">”</span></p>
+    </article>
+    <article class="art art--angle art--e">
+      <span class="art__ey">Messaging angle</span>
+      <p class="quote"><span class="qm">“</span>Set it up in 5 minutes, not 5 days.<span class="qm">”</span></p>
+    </article>
+
+    <!-- winning formats → reel thumbnails -->
+    <article class="art art--format art--c">
+      <span class="art__ey">Winning format</span>
+      <div class="fbody">
+        <span class="reel"><img src="../assets/hero-card-1.png" alt=""><span class="reel__play">▶</span></span>
+        <span class="fmeta"><b>Tutorial / how-to</b><span class="stat">+38% vs avg</span></span>
+      </div>
+    </article>
+    <article class="art art--format art--f">
+      <span class="art__ey">Winning format</span>
+      <div class="fbody">
+        <span class="reel"><img src="../assets/hero-card-3.png" alt=""><span class="reel__play">▶</span></span>
+        <span class="fmeta"><b>Founder POV</b><span class="stat">+24% CTR</span></span>
+      </div>
+    </article>
+  </div>
+</div></section>
+
+<!-- ===== CTA BAND ===== -->
+<section class="ctaband">
+  <h2>Ready to find your next winning ad?</h2>
+  <button class="btn">Book a Demo</button>
+</section>
+
+<!-- real rotating orthographic globe (D3 + world atlas), shown as a half-globe -->
+<script src="../assets/d3.min.js"></script>
+<script src="../assets/topojson-client.min.js"></script>
+<script>
+(function(){
+  var cv=document.getElementById('globeCanvas');
+  if(!cv||!window.d3||!window.topojson) return;
+  var ctx=cv.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2);
+  var proj,path,land,borders,feats,activeId=null,rot=0;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.__setActiveCountry=function(id){activeId=id;};
+  function resize(){
+    var gd=cv.clientWidth||cv.parentNode.clientWidth||500;
+    cv.width=Math.round(gd*dpr); cv.height=Math.round(gd*dpr);
+    proj=d3.geoOrthographic().translate([cv.width/2,cv.height/2]).scale(cv.width/2-2*dpr).clipAngle(90);
+    path=d3.geoPath(proj,ctx);
+  }
+  fetch('../assets/countries-110m.json').then(function(r){return r.json();}).then(function(world){
+    land=topojson.feature(world,world.objects.countries); feats=land.features;
+    borders=topojson.mesh(world,world.objects.countries,function(a,b){return a!==b;});
+    resize(); requestAnimationFrame(frame);
+  });
+  function frame(){
+    if(!proj){requestAnimationFrame(frame);return;}
+    proj.rotate([rot,-18]);
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ctx.beginPath(); path({type:'Sphere'}); ctx.fillStyle='#ffffff'; ctx.fill();
+    ctx.beginPath(); path(land); ctx.fillStyle='#ffc8a0'; ctx.fill();
+    if(activeId!=null){ var f=feats.find(function(x){return String(x.id)===String(activeId);});
+      if(f){ ctx.beginPath(); path(f); ctx.fillStyle='#ff8a3d'; ctx.fill(); } }
+    ctx.beginPath(); path(borders); ctx.lineWidth=0.6*dpr; ctx.strokeStyle='rgba(255,255,255,.82)'; ctx.stroke();
+    ctx.save(); ctx.beginPath(); path({type:'Sphere'}); ctx.clip();
+    var g=ctx.createRadialGradient(cv.width*0.4,cv.height*0.34,cv.width*0.05,cv.width*0.5,cv.height*0.5,cv.width*0.54);
+    g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(0.68,'rgba(255,255,255,0)'); g.addColorStop(1,'rgba(170,80,15,0.18)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,cv.width,cv.height); ctx.restore();
+    ctx.beginPath(); path({type:'Sphere'}); ctx.lineWidth=1*dpr; ctx.strokeStyle='rgba(220,120,50,.22)'; ctx.stroke();
+    if(!reduce) rot+=0.16;
+    requestAnimationFrame(frame);
+  }
+  window.addEventListener('resize',function(){dpr=Math.min(window.devicePixelRatio||1,2);resize();});
+})();
+</script>
+
+<!-- globe section: cycle the creator card by region as the globe turns -->
+<script>
+(function(){
+  var C=[
+    {n:'Mariana A.',c:'São Paulo',f:'🇧🇷',k:'Beauty',  id:'076',img:'../assets/hero-card-1.png',g:'radial-gradient(circle at 34% 28%,#ffb27a,#ff6a2b)'},
+    {n:'Jae Kim',   c:'Seoul',    f:'🇰🇷',k:'Tech',    id:'410',img:'../assets/hero-card-2.png',g:'radial-gradient(circle at 34% 28%,#7fd1ff,#3b6fd4)'},
+    {n:'Léa D.',    c:'Paris',    f:'🇫🇷',k:'Food',    id:'250',img:'../assets/hero-card-3.png',g:'radial-gradient(circle at 34% 28%,#ffc9a0,#c96a3a)'},
+    {n:'Rohan S.',  c:'Mumbai',   f:'🇮🇳',k:'Fitness', id:'356',img:'../assets/running-ads.png',g:'radial-gradient(circle at 34% 28%,#b9e6a3,#3f9d6c)'},
+    {n:'Ada O.',    c:'Lagos',    f:'🇳🇬',k:'Fashion', id:'566',img:'../assets/hero-card-2.png',g:'radial-gradient(circle at 34% 28%,#ffa7c4,#e0467f)'},
+    {n:'Cara M.',   c:'Austin',   f:'🇺🇸',k:'Home',    id:'840',img:'../assets/hero-card-1.png',g:'radial-gradient(circle at 34% 28%,#d8b4ff,#7c4ad6)'}
+  ];
+  var front=document.getElementById('gcard'); if(!front) return;
+  var img=document.getElementById('gcImg'), av=document.getElementById('gcAv'),
+      nm=document.getElementById('gcName'), fl=document.getElementById('gcFlag'),
+      ct=document.getElementById('gcCity'), nk=document.getElementById('gcNiche');
+  function paint(c){ img.src=c.img; av.style.background=c.g; nm.textContent=c.n;
+    fl.textContent=c.f; ct.textContent=c.c; nk.textContent=c.k;
+    if(window.__setActiveCountry) window.__setActiveCountry(c.id); }
+  paint(C[0]);
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var i=0;
+  setInterval(function(){
+    i=(i+1)%C.length;
+    front.classList.add('is-swap');
+    setTimeout(function(){ paint(C[i]); front.classList.remove('is-swap'); },360);
+  },2800);
+})();
+</script>
+</body>
+</html>
