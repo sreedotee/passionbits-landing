@@ -21,8 +21,8 @@ h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:var(-
 
 /* ---------- HERO (orange field · corner-pinned cards) ---------- */
 .hero{position:relative;overflow:hidden;text-align:center;color:#fff;
-  min-height:55vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:88px 24px;margin:0;border-radius:0;/*SHOT*/
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:88px 24px;margin:0;border-radius:0;
   background:
     radial-gradient(125% 120% at 50% 50%, rgba(110,34,0,0) 52%, rgba(110,34,0,.30) 100%),
     radial-gradient(78% 74% at 50% 36%, #ffb867 0%, #ff8d34 28%, #ff6a06 60%, #ee5a00 100%)}
@@ -370,7 +370,7 @@ h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:var(-
   </div>
 
   <div class="hero__inner">
-    <span class="namepill"><span class="stack"><img src="../assets/hero-card-1.png" alt=""><img src="../assets/hero-card-2.png" alt=""><img src="../assets/hero-card-3.png" alt=""></span> 10+ creators online <span class="grn"></span></span>
+    <span class="namepill"><span class="stack"><img src="assets/hero-card-1.png" alt=""><img src="assets/hero-card-2.png" alt=""><img src="assets/hero-card-3.png" alt=""></span> 10+ creators online <span class="grn"></span></span>
     <h1>Turn creator content<br>into ads that <span class="kw">win</span></h1>
     <p class="sub">The <b>one-stop platform</b> for growth teams to brief creators, surface what performs, and scale it — from first post to proven ad.</p>
     <div class="cta">
@@ -381,7 +381,7 @@ h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:var(-
 
   <div class="hero__stage">
     <!-- central product dashboard (real UI screenshot) -->
-    <div class="dash"><img src="../assets/product-ui.png" alt="PassionBits campaign dashboard — spend, ROAS, creators hired, impressions"></div>
+    <div class="dash"><img src="assets/product-ui.png" alt="PassionBits campaign dashboard — spend, ROAS, creators hired, impressions"></div>
 
     <!-- floating accent cards (complement the panel; no metric duplication) -->
     <div class="f f--hook"><span class="pin pin--o"></span><div class="k">Hook Score</div><div class="v">6.5<small>/10</small></div></div>
@@ -422,7 +422,7 @@ h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:var(-
         <span class="gcard gcard--ghost gcard--g2"></span>
         <span class="gcard gcard--ghost gcard--g1"></span>
         <article class="gcard gcard--front" id="gcard">
-          <div class="gcard__media"><img id="gcImg" src="../assets/hero-card-1.png" alt="Creator content"></div>
+          <div class="gcard__media"><img id="gcImg" src="assets/hero-card-1.png" alt="Creator content"></div>
           <div class="gcard__foot">
             <span class="gcard__av" id="gcAv"></span>
             <span class="gcard__meta">
@@ -497,14 +497,14 @@ h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:var(-
     <article class="art art--format art--c">
       <span class="art__ey">Winning format</span>
       <div class="fbody">
-        <span class="reel"><img src="../assets/hero-card-1.png" alt=""><span class="reel__play">▶</span></span>
+        <span class="reel"><img src="assets/hero-card-1.png" alt=""><span class="reel__play">▶</span></span>
         <span class="fmeta"><b>Tutorial / how-to</b><span class="stat">+38% vs avg</span></span>
       </div>
     </article>
     <article class="art art--format art--f">
       <span class="art__ey">Winning format</span>
       <div class="fbody">
-        <span class="reel"><img src="../assets/hero-card-3.png" alt=""><span class="reel__play">▶</span></span>
+        <span class="reel"><img src="assets/hero-card-3.png" alt=""><span class="reel__play">▶</span></span>
         <span class="fmeta"><b>Founder POV</b><span class="stat">+24% CTR</span></span>
       </div>
     </article>
@@ -518,8 +518,8 @@ h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:var(-
 </section>
 
 <!-- real rotating orthographic globe (D3 + world atlas), shown as a half-globe -->
-<script src="../assets/d3.min.js"></script>
-<script src="../assets/topojson-client.min.js"></script>
+<script src="assets/d3.min.js"></script>
+<script src="assets/topojson-client.min.js"></script>
 <script>
 (function(){
   var cv=document.getElementById('globeCanvas');
@@ -534,7 +534,7 @@ h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:var(-
     proj=d3.geoOrthographic().translate([cv.width/2,cv.height/2]).scale(cv.width/2-2*dpr).clipAngle(90);
     path=d3.geoPath(proj,ctx);
   }
-  fetch('../assets/countries-110m.json').then(function(r){return r.json();}).then(function(world){
+  fetch('assets/countries-110m.json').then(function(r){return r.json();}).then(function(world){
     land=topojson.feature(world,world.objects.countries); feats=land.features;
     borders=topojson.mesh(world,world.objects.countries,function(a,b){return a!==b;});
     resize(); requestAnimationFrame(frame);
@@ -564,12 +564,12 @@ h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:var(-
 <script>
 (function(){
   var C=[
-    {n:'Mariana A.',c:'São Paulo',f:'🇧🇷',k:'Beauty',  id:'076',img:'../assets/hero-card-1.png',g:'radial-gradient(circle at 34% 28%,#ffb27a,#ff6a2b)'},
-    {n:'Jae Kim',   c:'Seoul',    f:'🇰🇷',k:'Tech',    id:'410',img:'../assets/hero-card-2.png',g:'radial-gradient(circle at 34% 28%,#7fd1ff,#3b6fd4)'},
-    {n:'Léa D.',    c:'Paris',    f:'🇫🇷',k:'Food',    id:'250',img:'../assets/hero-card-3.png',g:'radial-gradient(circle at 34% 28%,#ffc9a0,#c96a3a)'},
-    {n:'Rohan S.',  c:'Mumbai',   f:'🇮🇳',k:'Fitness', id:'356',img:'../assets/running-ads.png',g:'radial-gradient(circle at 34% 28%,#b9e6a3,#3f9d6c)'},
-    {n:'Ada O.',    c:'Lagos',    f:'🇳🇬',k:'Fashion', id:'566',img:'../assets/hero-card-2.png',g:'radial-gradient(circle at 34% 28%,#ffa7c4,#e0467f)'},
-    {n:'Cara M.',   c:'Austin',   f:'🇺🇸',k:'Home',    id:'840',img:'../assets/hero-card-1.png',g:'radial-gradient(circle at 34% 28%,#d8b4ff,#7c4ad6)'}
+    {n:'Mariana A.',c:'São Paulo',f:'🇧🇷',k:'Beauty',  id:'076',img:'assets/hero-card-1.png',g:'radial-gradient(circle at 34% 28%,#ffb27a,#ff6a2b)'},
+    {n:'Jae Kim',   c:'Seoul',    f:'🇰🇷',k:'Tech',    id:'410',img:'assets/hero-card-2.png',g:'radial-gradient(circle at 34% 28%,#7fd1ff,#3b6fd4)'},
+    {n:'Léa D.',    c:'Paris',    f:'🇫🇷',k:'Food',    id:'250',img:'assets/hero-card-3.png',g:'radial-gradient(circle at 34% 28%,#ffc9a0,#c96a3a)'},
+    {n:'Rohan S.',  c:'Mumbai',   f:'🇮🇳',k:'Fitness', id:'356',img:'assets/running-ads.png',g:'radial-gradient(circle at 34% 28%,#b9e6a3,#3f9d6c)'},
+    {n:'Ada O.',    c:'Lagos',    f:'🇳🇬',k:'Fashion', id:'566',img:'assets/hero-card-2.png',g:'radial-gradient(circle at 34% 28%,#ffa7c4,#e0467f)'},
+    {n:'Cara M.',   c:'Austin',   f:'🇺🇸',k:'Home',    id:'840',img:'assets/hero-card-1.png',g:'radial-gradient(circle at 34% 28%,#d8b4ff,#7c4ad6)'}
   ];
   var front=document.getElementById('gcard'); if(!front) return;
   var img=document.getElementById('gcImg'), av=document.getElementById('gcAv'),
